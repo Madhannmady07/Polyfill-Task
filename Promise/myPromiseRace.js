@@ -10,7 +10,7 @@ let p2 = new Promise((resolve, reject) => {
 });
 let p3 = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve(3);
+    reject(3);
   }, 100);
 });
 let p4 = new Promise((resolve, reject) => {
@@ -23,10 +23,15 @@ let arr = [p1, p2, p3, p4];
 
 Promise.myRace = function(arr) {
     return new Promise((resolve, reject) =>{
+      // check whether it is an array or not
+      if (!Array.isArray(arr) || arr.length === 0) {
+        return reject(new TypeError("Argument must be an array"));
+      }
+
+        // is the first promise is resolved or reject, we will use then or catch to give the 
+        // appropriate response
         arr.forEach((promise) => {
-          Promise.resolve(promise)
-            .then(resolve, reject) 
-            .catch(reject); 
+            promise.then(resolve).catch(reject); 
         });
     })
 }
@@ -36,5 +41,5 @@ Promise.myRace(arr)
     console.log(data);
   })
   .catch((error) => {
-    console.error(error);
+    console.error(error,"error");
   });

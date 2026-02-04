@@ -24,6 +24,10 @@ let arr = [p1, p2, p3, p4];
 
 Promise.myAllSettled = function (arr) {
   return new Promise((res) => {
+    // check whether it is an array or not
+    if (!Array.isArray(arr) || arr.length === 0) {
+        return reject(new TypeError("Argument must be an array"));
+    }
     let resultArray = [];
     let c=0;
 

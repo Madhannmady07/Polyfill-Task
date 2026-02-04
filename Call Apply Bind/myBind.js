@@ -4,7 +4,7 @@ Function.prototype.myBind = function(context, ...bindArgs){
     return function(...callArgs){
         const allArgs = [...bindArgs, ...callArgs];
 
-        // implement call or apply, but here call
+        // implement call or apply
         if(context == null || context == undefined){
             context = globalThis;
         } else {
